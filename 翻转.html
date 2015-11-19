@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>翻转</title>
+	<style>
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	body {
+		overflow: hidden;
+	}
+	#box {
+		width: 277px;
+		height: 413px;
+		margin: 100px auto;
+		position: relative;
+		left: 0;
+		top: 0;
+		-webkit-transform-style: preserve-3d;
+		-moz-transform-style: preserve-3d;
+		-ms-transform-style: preserve-3d;
+		transform-style: preserve-3d;
+		-webkit-transform: perspective(800px) rotateY(-0) rotateX(0);
+		-ms-transform: perspective(800px) rotateY(-0) rotateX(0);
+		-o-transform: perspective(800px) rotateY(-0) rotateX(0);
+		transform: perspective(800px) rotateY(-0) rotateX(0);
+		-webkit-transition: 1s all ease;
+		-o-transition: 1s all ease;
+		transition: 1s all ease;
+	}
+	#box div {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		color: #fff;
+		font-size: 50px;
+		font-family: 'Microsoft Yahei';
+		text-align: center;
+		line-height: 250px;
+	}
+	#box .front {
+		-webkit-transform: translateZ(1px);
+		-ms-transform: translateZ(1px);
+		-o-transform: translateZ(1px);
+		transform: translateZ(1px);
+	}
+	#box .back {
+		-webkit-transform: translateZ(-1px) scale(-1,1);
+		-ms-transform: translateZ(-1px) scale(-1,1);
+		-o-transform: translateZ(-1px) scale(-1,1);
+		transform: translateZ(-1px) scale(-1,1);
+	}
+	#box:active {
+		-webkit-transform: perspective(800px) rotateY(180deg);
+		-ms-transform: perspective(800px) rotateY(180deg);
+		-o-transform: perspective(800px) rotateY(180deg);
+		transform: perspective(800px) rotateY(180deg);
+	}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<div class="front"><img src="img/front.jpg" height="413" width="277" /></div>
+		<div class="back"><img src="img/back.jpg" height="413" width="277" /></div>
+	</div>
+</body>
+</html>
