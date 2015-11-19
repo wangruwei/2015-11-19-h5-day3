@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>circle-3D</title>
+	<style>
+	* {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	ul {
+		width: 133px;
+		height: 200px;
+		margin: 200px auto;
+		position: relative;
+		left: 0;
+		top: 0;
+		-webkit-transform-style: preserve-3d;
+		-moz-transform-style: preserve-3d;
+		-ms-transform-style: preserve-3d;
+		transform-style: preserve-3d;
+		-webkit-transform: perspective(800px) rotateX(-30deg) rotateY(45deg);
+		-ms-transform: perspective(800px) rotateX(-30deg) rotateY(45deg);
+		-o-transform: perspective(800px) rotateX(-30deg) rotateY(45deg);
+		transform: perspective(800px) rotateX(-30deg) rotateY(45deg);
+		-webkit-transition: 3s all ease;
+		-o-transition: 3s all ease;
+		transition: 3s all ease;
+	}
+	li {
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+	ul:active {
+		-webkit-transform: perspective(800px) rotateX(-330deg) rotateY(360deg);
+		-ms-transform: perspective(800px) rotateX(-330deg) rotateY(360deg);
+		-o-transform: perspective(800px) rotateX(-330deg) rotateY(360deg);
+		transform: perspective(800px) rotateX(-330deg) rotateY(360deg);
+	}
+	</style>
+	<script>
+	'use strict';
+	window.onload = function(){
+		var oUl = document.body.children[0];
+		var aLi = oUl.children;
+		for(var i=0;i<aLi.length;i++){
+			aLi[i].style.WebkitTransition = '1.5s all ease';
+			(function(index){
+				setTimeout(function(){
+					aLi[index].style.WebkitTransform = 'rotateY('+index*360/aLi.length+'deg) translateZ(300px)';
+				},100*(aLi.length-index));
+			})(i);
+		}
+	};
+	</script>
+</head>
+<body>
+	<ul>
+		<li><img src="img/1.jpg" /></li>
+		<li><img src="img/2.jpg" /></li>
+		<li><img src="img/3.jpg" /></li>
+		<li><img src="img/4.jpg" /></li>
+		<li><img src="img/5.jpg" /></li>
+		<li><img src="img/6.jpg" /></li>
+		<li><img src="img/7.jpg" /></li>
+		<li><img src="img/8.jpg" /></li>
+		<li><img src="img/9.jpg" /></li>
+		<li><img src="img/10.jpg" /></li>
+		<li><img src="img/11.jpg" /></li>
+	</ul>
+</body>
+</html>
