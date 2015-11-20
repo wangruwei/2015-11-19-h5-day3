@@ -15,8 +15,8 @@
 		text-align: center;
 	}
 	input {
-		width: 150px;
-		height: 50px;
+		width: 130px;
+		height: 40px;
 		border: 2px solid #999;
 		border-radius: 10px;
 		color: #fff;
@@ -55,6 +55,11 @@
 		background: -o-linear-gradient(#CC4AFD,#B005D4);
 		background: linear-gradient(#CC4AFD,#B005D4);
 	}
+	input.bar {
+		background: -webkit-linear-gradient(#FF7100,#DC6F00);
+		background: -o-linear-gradient(#FF7100,#DC6F00);
+		background: linear-gradient(#FF7100,#DC6F00);
+	}
 	input:hover {
 		box-shadow: inset 0 0 25px #fff, 0 10px 1px #333;
 	}
@@ -68,9 +73,17 @@
 	#box {
 		width: 700px;
 		height: 400px;
-		margin: 100px auto;
+		margin: 50px auto;
 		background: url(img/b1.jpg);
 		position: relative;
+		/*-webkit-transform-style: preserve-3d;
+		-moz-transform-style: preserve-3d;
+		-ms-transform-style: preserve-3d;
+		transform-style: preserve-3d;*/
+		-webkit-transform: perspective(800px);
+		-ms-transform: perspective(800px);
+		-o-transform: perspective(800px);
+		transform: perspective(800px);
 	}
 	span {
 		position: absolute;
@@ -156,6 +169,33 @@
 		width: 100%;
 		height: 100%;
 	}
+	#box .first {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		-webkit-transform: translateZ(200px);
+		-ms-transform: translateZ(200px);
+		-o-transform: translateZ(200px);
+		transform: translateZ(200px);
+	}
+	#box .second {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		-webkit-transform: translateY(-200px) rotateX(-90deg) scale(1,-1);
+		-ms-transform: translateY(-200px) rotateX(-90deg) scale(1,-1);
+		-o-transform: translateY(-200px) rotateX(-90deg) scale(1,-1);
+		transform: translateY(-200px) rotateX(-90deg) scale(1,-1);
+	}
+	#box .sCube span {
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
 	</style>
 	<script>
 	'use strict';
@@ -166,6 +206,7 @@
 		var oBtn2 = oBox2.children[1];
 		var oBtn3 = oBox2.children[2];
 		var oBtn4 = oBox2.children[3];
+		var oBtn5 = oBox2.children[4];
 		var aS = oBox.getElementsByTagName('span');
 		var R = 4;
 		var C = 7;
@@ -332,6 +373,64 @@
 			oRight.style.WebkitTransform = 'translateX(350px) rotateY(90deg)';
 			return oCube;
 		}
+		oBtn5.onclick = function(){
+			if(bOk){
+				bOk = false;
+				createBar(iNow);
+				oBox.style.background = 'none';
+				setTimeout(function(){
+					oBox.style.WebkitTransformStyle = 'preserve-3d';
+					var aBar = oBox.children;
+					for(var i=0;i<aBar.length;i++){
+						aBar[i].style.WebkitTransition = '0.3s all ease';
+						(function(index){
+							setTimeout(function(){
+								aBar[index].style.WebkitTransform = 'perspective(800px) translateZ(-200px) rotateX(-90deg)';
+							},100*index);
+						})(i);
+					}
+					setTimeout(function(){
+						oBox.style.background = 'url(img/'+arr[(iNow+1)%arr.length]+')';
+						oBox.innerHTML = '';
+						iNow++;
+						bOk = true;
+					},1000);
+				},10);
+			}
+		};
+		function createBar(iNow){
+			for(var i=0;i<C;i++){
+				var oBar = document.createElement('div');
+				oBar.className = 'sCube';
+				oBar.innerHTML = '<span class="first"></span><span class="second"></span><span class="bLeft"></span><span class="bRight"></span>';
+				oBar.style.position = 'absolute';
+				oBar.style.WebkitTransformStyle = 'preserve-3d';
+				oBar.style.WebkitTransform = 'perspective(800px) translateZ(-200px) rotateX(0)';
+				oBar.style.width = oBox.offsetWidth/C+'px';
+				oBar.style.left = oBox.offsetWidth/C*i+'px';
+				oBar.style.top = 0;
+				oBar.style.height = '100%';
+				var oFirst = oBar.children[0];
+				oFirst.style.background = 'url(img/'+arr[iNow%arr.length]+') -'+oBox.offsetWidth/C*i+'px';
+				var oSecond = oBar.children[1];
+				oSecond.style.background = 'url(img/'+arr[(iNow+1)%arr.length]+') -'+oBox.offsetWidth/C*i+'px';
+				var oLeft = oBar.children[2];
+				oLeft.style.width = '400px';
+				oLeft.style.height = '400px';
+				oLeft.style.left = '50%';
+				oLeft.style.marginLeft = '-200px';
+				oLeft.style.WebkitTransform = 'translateX(-50px) rotateY(-90deg)';
+				var oRight = oBar.children[3];
+				oRight.style.width = '400px';
+				oRight.style.height = '400px';
+				oRight.style.left = '50%';
+				oRight.style.marginLeft = '-200px';
+				oRight.style.WebkitTransform = 'translateX(50px) rotateY(-90deg)';
+				oLeft.style.background = '#ccc';
+				oRight.style.background = '#ccc';
+				oBox.appendChild(oBar);
+			}
+		}
 	};
 	</script>
 </head>
@@ -343,6 +442,7 @@
 		<input type="button" value="翻转" class="flip"/>
 		<input type="button" value="翻页" class="turn"/>
 		<input type="button" value="立方体" class="cube"/>
+		<input type="button" value="扭曲" class="bar"/>
 	</div>
 </body>
 </html>
