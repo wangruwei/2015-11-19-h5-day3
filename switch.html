@@ -76,10 +76,7 @@
 		margin: 50px auto;
 		background: url(img/b1.jpg);
 		position: relative;
-		/*-webkit-transform-style: preserve-3d;
-		-moz-transform-style: preserve-3d;
-		-ms-transform-style: preserve-3d;
-		transform-style: preserve-3d;*/
+		
 		-webkit-transform: perspective(800px);
 		-ms-transform: perspective(800px);
 		-o-transform: perspective(800px);
@@ -392,6 +389,7 @@
 					setTimeout(function(){
 						oBox.style.background = 'url(img/'+arr[(iNow+1)%arr.length]+')';
 						oBox.innerHTML = '';
+						oBox.style.WebkitTransformStyle = 'flat';
 						iNow++;
 						bOk = true;
 					},1000);
