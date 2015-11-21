@@ -376,12 +376,14 @@
 				createBar(iNow);
 				oBox.style.background = 'none';
 				setTimeout(function(){
-					oBox.style.WebkitTransformStyle = 'preserve-3d';
+					//oBox.style.WebkitTransformStyle = 'preserve-3d';
 					var aBar = oBox.children;
 					for(var i=0;i<aBar.length;i++){
-						aBar[i].style.WebkitTransition = '0.3s all ease';
+						aBar[i].style.WebkitTransition = '0.5s all ease';
 						(function(index){
 							setTimeout(function(){
+								if(index>=Math.floor(C/2))aBar[index].style.zIndex = (10-index);
+								aBar[index].style.WebkitTransformOrigin = (350-(index*100+50))+'px center';
 								aBar[index].style.WebkitTransform = 'perspective(800px) translateZ(-200px) rotateX(-90deg)';
 							},100*index);
 						})(i);
@@ -393,7 +395,7 @@
 						iNow++;
 						bOk = true;
 					},1000);
-				},10);
+				},100);
 			}
 		};
 		function createBar(iNow){
